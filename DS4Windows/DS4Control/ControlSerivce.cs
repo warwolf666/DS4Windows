@@ -13,7 +13,7 @@ namespace DS4Windows
     public class ControlService
     {
         public X360Device x360Bus;
-        public DS4Device[] DS4Controllers = new DS4Device[4];
+        public DS4AbstractDevice[] DS4Controllers = new DS4AbstractDevice[4];
         public Mouse[] touchPad = new Mouse[4];
         private bool running = false;
         private DS4State[] MappedState = new DS4State[4];
@@ -86,7 +86,7 @@ namespace DS4Windows
             dcs.Add(DS4Controls.SwipeRight);
         }
 
-        private async void WarnExclusiveModeFailure(DS4Device device)
+        private async void WarnExclusiveModeFailure(DS4AbstractDevice device)
         {
             if (DS4Devices.isExclusiveMode && !device.IsExclusive)
             {
@@ -111,10 +111,10 @@ namespace DS4Windows
                 try
                 {
                     DS4Devices.findControllers();
-                    IEnumerable<DS4Device> devices = DS4Devices.getDS4Controllers();
+                    IEnumerable<DS4AbstractDevice> devices = DS4Devices.getDS4Controllers();
                     int ind = 0;
                     DS4LightBar.defualtLight = false;
-                    foreach (DS4Device device in devices)
+                    foreach (DS4AbstractDevice device in devices)
                     {
                         if (showlog)
                             LogDebug(Properties.Resources.FoundController + device.MacAddress + " (" + device.ConnectionType + ")");
@@ -207,8 +207,8 @@ namespace DS4Windows
             if (running)
             {
                 DS4Devices.findControllers();
-                IEnumerable<DS4Device> devices = DS4Devices.getDS4Controllers();
-                foreach (DS4Device device in devices)
+                IEnumerable<DS4AbstractDevice> devices = DS4Devices.getDS4Controllers();
+                foreach (DS4AbstractDevice device in devices)
                 {
                     if (device.IsDisconnecting)
                         continue;
@@ -256,7 +256,7 @@ namespace DS4Windows
             return true;
         }
 
-        public void TouchPadOn(int ind, DS4Device device)
+        public void TouchPadOn(int ind, DS4AbstractDevice device)
         {
             ITouchpadBehaviour tPad = touchPad[ind];
             device.Touchpad.TouchButtonDown += tPad.touchButtonDown;
@@ -271,7 +271,7 @@ namespace DS4Windows
             ControllerStatusChanged(this);
         }
 
-        public void TimeoutConnection(DS4Device d)
+        public void TimeoutConnection(DS4AbstractDevice d)
         {
             try
             {
@@ -301,7 +301,7 @@ namespace DS4Windows
         {
             if (DS4Controllers[index] != null)
             {
-                DS4Device d = DS4Controllers[index];
+                DS4AbstractDevice d = DS4Controllers[index];
                 if (!d.IsAlive())
                     //return "Connecting..."; // awaiting the first battery charge indication
                 {
@@ -334,7 +334,7 @@ namespace DS4Windows
         {
             if (DS4Controllers[index] != null)
             {
-                DS4Device d = DS4Controllers[index];
+                DS4AbstractDevice d = DS4Controllers[index];
                 if (!d.IsAlive())
                 //return "Connecting..."; // awaiting the first battery charge indication
                 {
@@ -354,7 +354,7 @@ namespace DS4Windows
         {
             if (DS4Controllers[index] != null)
             {
-                DS4Device d = DS4Controllers[index];
+                DS4AbstractDevice d = DS4Controllers[index];
                 String battery;
                 if (!d.IsAlive())
                     battery = "...";
@@ -379,7 +379,7 @@ namespace DS4Windows
         {
             if (DS4Controllers[index] != null)
             {
-                DS4Device d = DS4Controllers[index];
+                DS4AbstractDevice d = DS4Controllers[index];
                 String battery;
                 if (!d.IsAlive())
                     battery = "...";
@@ -404,7 +404,7 @@ namespace DS4Windows
         {
             if (DS4Controllers[index] != null)
             {
-                DS4Device d = DS4Controllers[index];
+                DS4AbstractDevice d = DS4Controllers[index];
                 return d.ConnectionType+"";
             }
             else
@@ -416,7 +416,7 @@ namespace DS4Windows
         //Called when DS4 is disconnected or timed out
         protected virtual void On_DS4Removal(object sender, EventArgs e)
         {
-            DS4Device device = (DS4Device)sender;
+            DS4AbstractDevice device = (DS4AbstractDevice)sender;
             int ind = -1;
             for (int i = 0; i < DS4Controllers.Length; i++)
                 if (DS4Controllers[i] != null && device.MacAddress == DS4Controllers[i].MacAddress)
@@ -442,7 +442,7 @@ namespace DS4Windows
         protected virtual void On_Report(object sender, EventArgs e)
         {
 
-            DS4Device device = (DS4Device)sender;
+            DS4AbstractDevice device = (DS4AbstractDevice)sender;
 
             int ind = -1;
             for (int i = 0; i < DS4Controllers.Length; i++)

@@ -1202,7 +1202,7 @@ namespace DS4Windows
                         }
                         else if (triggeractivated && action.type == "DisconnectBT")
                         {
-                            DS4Device d = ctrl.DS4Controllers[device];
+                            DS4AbstractDevice d = ctrl.DS4Controllers[device];
                             if (!d.Charging)
                             {
                                 d.DisconnectBT();
@@ -1234,7 +1234,7 @@ namespace DS4Windows
                             }
                             if (bool.Parse(dets[2]))
                             {
-                                DS4Device d = ctrl.DS4Controllers[device];
+                                DS4AbstractDevice d = ctrl.DS4Controllers[device];
                                 if (!actionDone[device, index])
                                 {
                                     lastColor[device] = d.LightBarColor;
@@ -1273,7 +1273,7 @@ namespace DS4Windows
                             if (getCustomKey(device, action.trigger[0]) != 0)
                                 getCustomMacros(device).Remove(action.trigger[0]);*/
                             string[] dets = action.details.Split(',');
-                            DS4Device d = ctrl.DS4Controllers[device];
+                            DS4AbstractDevice d = ctrl.DS4Controllers[device];
                             //cus
                             if (getBoolMapping(device, action.trigger[0], cState, eState, tp) && !getBoolMapping(device, action.trigger[0], d.getPreviousState(), eState, tp))
                             {//pressed down
@@ -1472,7 +1472,7 @@ namespace DS4Windows
                         }
                         else if (i >= 1000000)
                         {
-                            DS4Device d = Program.rootHub.DS4Controllers[device];
+                            DS4AbstractDevice d = Program.rootHub.DS4Controllers[device];
                             string r = i.ToString().Substring(1);
                             byte heavy = (byte)(int.Parse(r[0].ToString()) * 100 + int.Parse(r[1].ToString()) * 10 + int.Parse(r[2].ToString()));
                             byte light = (byte)(int.Parse(r[3].ToString()) * 100 + int.Parse(r[4].ToString()) * 10 + int.Parse(r[5].ToString()));

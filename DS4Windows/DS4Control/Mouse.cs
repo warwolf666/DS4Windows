@@ -12,7 +12,7 @@ namespace DS4Windows
         protected Touch firstTouch, secondTouch;
         private DS4State s = new DS4State();
         protected int deviceNum;
-        private DS4Device dev = null;
+        private DS4AbstractDevice dev = null;
         private readonly MouseCursor cursor;
         private readonly MouseWheel wheel;
         private bool tappedOnce = false, secondtouchbegin = false;
@@ -24,7 +24,7 @@ namespace DS4Windows
         protected DS4Controls pushed = DS4Controls.None;
         protected Mapping.Click clicked = Mapping.Click.None;
 
-        public Mouse(int deviceID, DS4Device d)
+        public Mouse(int deviceID, DS4AbstractDevice d)
         {
             deviceNum = deviceID;
             dev = d;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DS4Windows.DS4Library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,7 +50,7 @@ namespace DS4Windows
         internal byte[] previousPacket = new byte[8];
         
 
-        public void handleSixaxis(byte[] gyro, byte[] accel, DS4State state)
+        public void handleSixaxis(ref DS4InputSixaxis sixaxisInput, DS4State state)
         {
             //bool touchPadIsDown = sensors.TouchButton;
             /*if (!PacketChanged(data, touchPacketOffset) && touchPadIsDown == lastTouchPadIsDown)
@@ -60,12 +61,12 @@ namespace DS4Windows
             }*/
             /* byte touchID1 = (byte)(data[0 + TOUCHPAD_DATA_OFFSET + touchPacketOffset] & 0x7F);
              byte touchID2 = (byte)(data[4 + TOUCHPAD_DATA_OFFSET + touchPacketOffset] & 0x7F);*/
-            int currentX = (short)((ushort)(gyro[0] << 8) | gyro[1]) / 64;
-            int currentY = (short)((ushort)(gyro[2] << 8) | gyro[3]) / 64;
-            int currentZ = (short)((ushort)(gyro[4] << 8) | gyro[5]) / 64;
-            int AccelX = (short)((ushort)(accel[2] << 8) | accel[3]) / 256;
-            int AccelY = (short)((ushort)(accel[0] << 8) | accel[1]) / 256;
-            int AccelZ = (short)((ushort)(accel[4] << 8) | accel[5]) / 256;
+            int currentX = sixaxisInput.m_GyroX;
+            int currentY = sixaxisInput.m_GyroY;
+            int currentZ = sixaxisInput.m_GyroZ;
+            int AccelX = sixaxisInput.m_AccelX;
+            int AccelY = sixaxisInput.m_AccelY;
+            int AccelZ = sixaxisInput.m_AccelZ;
             SixAxisEventArgs args;
             //if (sensors.Touch1 || sensors.Touch2)
             {

@@ -1173,7 +1173,7 @@ namespace DS4Windows
 
         private void btnRumbleHeavyTest_Click(object sender, EventArgs e)
         {
-            DS4Device d = Program.rootHub.DS4Controllers[(int)nUDSixaxis.Value - 1];
+            DS4AbstractDevice d = Program.rootHub.DS4Controllers[(int)nUDSixaxis.Value - 1];
             if (d != null)
                 if (((Button)sender).Text == Properties.Resources.TestHText)
                 {
@@ -1189,7 +1189,7 @@ namespace DS4Windows
 
         private void btnRumbleLightTest_Click(object sender, EventArgs e)
         {
-            DS4Device d = Program.rootHub.DS4Controllers[(int)nUDSixaxis.Value - 1];
+            DS4AbstractDevice d = Program.rootHub.DS4Controllers[(int)nUDSixaxis.Value - 1];
             if (d != null)
                 if (((Button)sender).Text == Properties.Resources.TestLText)
                 {

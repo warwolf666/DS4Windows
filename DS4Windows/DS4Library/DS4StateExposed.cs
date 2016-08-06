@@ -47,9 +47,9 @@ namespace DS4Windows
         int Battery { get { return _state.Battery; } }
 
         /// <summary> Holds raw DS4 input data from 14 to 19 </summary>
-        public byte[] Accel { set { accel = value; } }
+        //public byte[] Accel { set { accel = value; } }
         /// <summary> Holds raw DS4 input data from 20 to 25 </summary>
-        public byte[] Gyro { set { gyro = value; } }
+        //public byte[] Gyro { set { gyro = value; } }
 
         /// <summary> Yaw leftward/counter-clockwise/turn to port or larboard side </summary>
         /// <remarks> Add double the previous result to this delta and divide by three.</remarks>

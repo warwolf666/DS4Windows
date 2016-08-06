@@ -820,7 +820,7 @@ namespace DS4Windows
             for (Int32 Index = 0; Index < Pads.Length; Index++)
             {
                 Pads[Index].Text = Program.rootHub.getDS4MacAddress(Index);
-                DS4Device d = Program.rootHub.DS4Controllers[Index];
+                DS4AbstractDevice d = Program.rootHub.DS4Controllers[Index];
                 if (QuickCharge && d?.ConnectionType == ConnectionType.BT && (bool)d?.Charging)
                 {
                     d.DisconnectBT();

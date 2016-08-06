@@ -189,7 +189,7 @@ namespace DS4Windows
                     return ReadStatus.NoDataRead;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return ReadStatus.ReadError;
             }

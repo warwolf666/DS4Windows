@@ -29,7 +29,7 @@ namespace DS4Windows
         public static bool[] forcelight = new bool[4] { false, false, false, false };
         public static DS4Color[] forcedColor = new DS4Color[4];
         public static byte[] forcedFlash = new byte[4];
-        public static void updateLightBar(DS4Device device, int deviceNum, DS4State cState, DS4StateExposed eState, Mouse tp)
+        public static void updateLightBar(DS4AbstractDevice device, int deviceNum, DS4State cState, DS4StateExposed eState, Mouse tp)
         {
             DS4Color color;
             if (!defualtLight && !forcelight[deviceNum])
